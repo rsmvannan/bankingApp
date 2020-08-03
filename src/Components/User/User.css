@@ -1,0 +1,21 @@
+.class-loan {
+  margin-top: 10px;
+  height: 50px;
+}
+
+.card-button {
+  float: left;
+  font-style: italic;
+  cursor: pointer;
+  color: blue;
+  font-size: small;
+}
+
+.newloan {
+  height: 30px;
+  margin-top: 35px;
+}
+
+.reset {
+  margin-left: 10px;
+}

@@ -1,0 +1,27 @@
+.alert {
+  color: olive;
+}
+
+.page-header {
+  margin-top: 20px;
+}
+
+.class-label {
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.class-label1 {
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.button {
+  position: absolute;
+  margin-top: 10px;
+}
+
+.paragraph {
+  margin-top: 50px;
+  margin-left: 65px;
+}

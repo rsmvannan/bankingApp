@@ -1,0 +1,8 @@
+.header {
+  background-color: black;
+  padding-left: 500px !important ;
+  /* opacity: 0.3; */
+  color: white !important;
+  height: 10vmin;
+  font-size: large;
+}
