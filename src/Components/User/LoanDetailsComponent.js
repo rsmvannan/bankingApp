@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./User.css";
 import { useHistory, Link } from "react-router-dom";
 import { Card, Form, Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import Loans from "./Loans";
+import * as actionTypes from "../../store/actions";
 
 const LoanDetailsComponent = (props) => {
   const [state, setState] = useState({
@@ -11,18 +14,31 @@ const LoanDetailsComponent = (props) => {
     loanDate: "",
     loanDuration: "",
   });
+
   let history = useHistory();
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state.loanDetails);
 
   const changeHandler = (event) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    // console.log(event.target.name, event.target.value);
+    const value = event.target.value;
+    setState({
+      ...state,
+      [event.target.name]: value,
+    });
+    // const { name, value } = event.target;
+    // setState((prevState) => ({
+    //   ...prevState,
+    //   [name]: value,
+    // }));
   };
 
-  const submitHandler = () => {
-    alert("Congratulations. Loan applied...");
+  const submitHandler = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: actionTypes.APPLY_LOAN,
+      state: state,
+    });
   };
 
   const clickHandler = () => {
@@ -44,8 +60,11 @@ const LoanDetailsComponent = (props) => {
               <Form.Row>
                 <Form.Group className="col-md-2" controlId="loantype">
                   <Form.Label>Loan Type </Form.Label>
-                  <Form.Control as="select">
+                  <Form.Control
+                    as="select"
+                    name="loanType"
                     onChange={changeHandler}
+                  >
                     <option>Personal</option>
                     <option>Housing</option>
                     <option>Mortgage</option>
@@ -57,12 +76,17 @@ const LoanDetailsComponent = (props) => {
                   <Form.Control
                     type="number"
                     placeholder=" Loan Amount"
+                    name="loanAmount"
                     onChange={changeHandler}
                   />
                 </Form.Group>
                 <Form.Group className="col-md-2">
                   <Form.Label>Rate of Interest</Form.Label>
-                  <Form.Control as="select" onChange={changeHandler}>
+                  <Form.Control
+                    as="select"
+                    onChange={changeHandler}
+                    name="rateOfInterest"
+                  >
                     <option>8.1</option>
                     <option>7.8</option>
                     <option>8.2</option>
@@ -71,11 +95,19 @@ const LoanDetailsComponent = (props) => {
                 </Form.Group>
                 <Form.Group className="col-md-2" controlId="date">
                   <Form.Label>Loan Date </Form.Label>
-                  <Form.Control type="date" onChange={changeHandler} />
+                  <Form.Control
+                    type="date"
+                    name="loanDate"
+                    onChange={changeHandler}
+                  />
                 </Form.Group>
                 <Form.Group className="col-md-2">
                   <Form.Label>Loan Duration(in Months)</Form.Label>
-                  <Form.Control as="select" onChange={changeHandler}>
+                  <Form.Control
+                    as="select"
+                    name="loanDuration"
+                    onChange={changeHandler}
+                  >
                     <option>12</option>
                     <option>18</option>
                     <option>24</option>
@@ -95,7 +127,14 @@ const LoanDetailsComponent = (props) => {
             </Form>
           </Card.Body>
         </Card>
-        <p> Outstanding Loan Details...</p>
+        <Card>
+          <Card.Header as="h5">Outstanding Loan Details</Card.Header>
+        </Card>
+        {/* <p> */}
+
+        {/* {selector.loanAmount} */}
+        <Loans />
+        {/* </p> */}
       </div>
     </div>
   );
