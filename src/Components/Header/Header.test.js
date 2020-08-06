@@ -5,7 +5,7 @@ import HeaderComponent from "./HeaderComponent";
 
 configure({ adapter: new Adapter() });
 
-describe("Login Component", () => {
+describe("Header Component should be rendered", () => {
   it("Should be rendered", () => {
     const component = shallow(<HeaderComponent />);
     const wrapper = component.find(".header");

@@ -3,7 +3,7 @@ import "./Login.css";
 import Authentication from "../Auth/Authentication";
 import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import { add_user } from "../../store/actions/actions";
 
 const LoginComponent = (props) => {
   let [username, setUserName] = useState();
@@ -84,11 +84,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onClickSubmit: (username) =>
-      dispatch({
-        type: actionTypes.ADD_USER,
-        name: username,
-      }),
+    onClickSubmit: (username) => dispatch(add_user(username)),
   };
 };
 

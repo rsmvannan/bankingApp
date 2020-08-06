@@ -4,7 +4,8 @@ import { useHistory, Link } from "react-router-dom";
 import { Card, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loans from "./Loans";
-import * as actionTypes from "../../store/actions";
+// import * as actionTypes from "../../store/actions/actions";
+import { apply_loan } from "../../store/actions/actions";
 
 const LoanDetailsComponent = (props) => {
   const [state, setState] = useState({
@@ -35,10 +36,7 @@ const LoanDetailsComponent = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch({
-      type: actionTypes.APPLY_LOAN,
-      state: state,
-    });
+    dispatch(apply_loan(state));
   };
 
   const clickHandler = () => {
