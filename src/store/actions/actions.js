@@ -4,7 +4,8 @@ export const APPLY_LOAN = "APPLY_LOAN";
 export const add_user = (username) => {
   return {
     type: ADD_USER,
-    name: username,
+    name: username ? username : null,
+    // pwd: password,
   };
 };
 

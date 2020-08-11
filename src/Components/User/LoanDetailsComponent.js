@@ -61,6 +61,7 @@ const LoanDetailsComponent = (props) => {
                   <Form.Control
                     as="select"
                     name="loanType"
+                    className="loanType"
                     onChange={changeHandler}
                   >
                     <option>Personal</option>

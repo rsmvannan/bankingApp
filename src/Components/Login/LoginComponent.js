@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./Login.css";
-import Authentication from "../Auth/Authentication";
+import { storeUser } from "../Auth/Authentication";
 import { useHistory, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { add_user } from "../../store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginComponent = (props) => {
   let [username, setUserName] = useState();
@@ -11,6 +12,9 @@ const LoginComponent = (props) => {
   // let [isLogin, setLogin] = useState(true);
 
   let history = useHistory();
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state.isLogin);
+  // const selector = useSelector((state) => state);
 
   const changeHandler = (event) => {
     if (event.target.name === "username") {
@@ -21,25 +25,25 @@ const LoginComponent = (props) => {
   };
 
   const submitLogin = () => {
-    if (username === "test" && password === "test") {
-      // setLogin(true);
-      props.onClickSubmit(username);
-      console.log(props.user);
-      Authentication.storeUser(props.user);
+    if (username === "admin" && password === "admin") {
+      dispatch(add_user(username));
+      storeUser(props.user);
+      // console.log("if", selector);
       history.push("/welcome");
+    } else {
+      dispatch(add_user());
+      // console.log("else", selector);
     }
-    // else {
-    //   setLogin(false);
-    // }
   };
 
   return (
     <div>
-      {!props.isLogin && <div className="alert"> Invalid Credentials </div>}
+      {selector.isLogin && <div className="alert"> Invalid Credentials </div>}
       <div className="page-header">
         <label className="class-label"> User Name</label>
         <input
           type="text"
+          className="username"
           placeholder="Enter User Name"
           name="username"
           value={username}
@@ -73,19 +77,20 @@ const LoginComponent = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  console.log(state.isLogin, state.loggedUser);
-  const { isLogin, loggedUser } = state;
-  return {
-    isLogin: isLogin,
-    user: loggedUser,
-  };
-};
+export default LoginComponent;
+// const mapStateToProps = (state) => {
+//   console.log(state.isLogin, state.loggedUser);
+//   const { isLogin, loggedUser } = state;
+//   return {
+//     isLogin: isLogin,
+//     user: loggedUser,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onClickSubmit: (username) => dispatch(add_user(username)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onClickSubmit: (username) => dispatch(add_user(username)),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);
+// export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent);

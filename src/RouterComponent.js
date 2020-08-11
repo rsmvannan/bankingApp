@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { StaticRouter as Router, Route, Switch } from "react-router-dom";
 import LoginComponent from "./Components/Login/LoginComponent";
 import HeaderComponent from "./Components/Header/HeaderComponent";
 import WelcomeComponent from "./Components/User/WelcomeComponent";
@@ -13,13 +13,18 @@ const RouterComponent = () => {
     <div>
       <Router>
         <Route path="/" component={HeaderComponent} />
-        <Route path="/" exact component={LoginComponent} />
-        <Route path="/welcome/" exact component={WelcomeComponent} />
-        <Route path="/register" component={UserRegistration} />
-        <Route path="/welcome/loan" component={LoanDetailsComponent} />
-        <Route path="/welcome/personal" component={PersonalDetailsComponents} />
-        <Route path="/logout" component={LogoutComponent} />
-        {/* <Route path="" exact component={ErrorComponent} /> */}
+        <Switch>
+          <Route path="/" exact component={LoginComponent} />
+          <Route path="/welcome/" exact component={WelcomeComponent} />
+          <Route path="/register" component={UserRegistration} />
+          <Route path="/welcome/loan" component={LoanDetailsComponent} />
+          <Route
+            path="/welcome/personal"
+            component={PersonalDetailsComponents}
+          />
+          <Route path="/logout" component={LogoutComponent} />
+          {/* <Route path="" exact component={ErrorComponent} /> */}
+        </Switch>
       </Router>
     </div>
   );

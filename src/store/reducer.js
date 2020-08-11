@@ -2,7 +2,7 @@ import * as actionTypes from "./actions/actions";
 
 const initialState = {
   loggedUser: "",
-  isLogin: null,
+  isLogin: true,
   loanDetails: {
     loanType: "",
     loanAmount: "",
@@ -16,11 +16,20 @@ const reducer = (state = initialState, action) => {
   console.log(action.type, action);
   switch (action.type) {
     case actionTypes.ADD_USER:
+      if (action.name !== null) {
+        return {
+          ...state,
+          loggedUser: action.name,
+          isLogin: true,
+        };
+      }
+      // console.log("test");
       return {
         ...state,
-        loggedUser: action.name,
-        isLogin: true,
+        loggedUser: "",
+        isLogin: false,
       };
+
     case actionTypes.APPLY_LOAN:
       return {
         ...state,
