@@ -1,19 +1,19 @@
-class Authentication {
-  storeUser(user) {
-    sessionStorage.setItem("autheticatedUser", user);
-  }
-
-  getUser() {
-    let user = sessionStorage.getItem("authenticatedUser");
-    if (user === null) {
-      return false;
-    }
-    return true;
-  }
-
-  removeuser = () => {
-    sessionStorage.removeItem("authenticatedUser");
-  };
+// const authentication = () => {
+function storeUser(user) {
+  sessionStorage.setItem("autheticatedUser", user);
 }
 
-export default new Authentication();
+function getUser() {
+  let user = sessionStorage.getItem("authenticatedUser");
+  if (user === null) {
+    return false;
+  }
+  return true;
+}
+
+function removeuser() {
+  sessionStorage.removeItem("authenticatedUser");
+}
+// };
+
+export { storeUser };
