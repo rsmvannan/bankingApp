@@ -25,13 +25,37 @@ const PersonalDetailsComponents = (props) => {
   let history = useHistory();
 
   useEffect(() => {
+    console.log("use effect");
     // event.preventDefault();
     // console.log(selector);
     axios.get("http://localhost:8001/user").then((result) => {
       console.log(result.data);
+      assignValues(result.data[0]);
+      // setState({
+      //   ...state,
+      //   name: result.data[0].name,
+      // });
+      // changeHandler(result);
       // dispatch(apply_loan(result.data));
     });
   }, []);
+
+  function assignValues(userData) {
+    console.log(userData);
+    setState({
+      // ...state,
+      name: userData.name,
+      address: userData.address,
+      zip: userData.zip,
+      state: userData.state,
+      country: userData.country,
+      email: userData.email,
+      pan: userData.pan,
+      contactNumber: userData.contactNumber,
+      dob: userData.dob.toString().slice(0, 10),
+      accountType: userData.accountType,
+    });
+  }
 
   const changeHandler = (event) => {
     const value = event.target.value;
@@ -67,33 +91,19 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Label> Name </Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter Name"
+                  name="name"
+                  value={state.name}
+                  // placeholder="Enter Name"
                   onChange={changeHandler}
                 />
               </Form.Group>
-              <Form.Group className="col-md-4" controlId="userName">
-                <Form.Label> User Name </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter User Name"
-                  onChange={changeHandler}
-                />
-              </Form.Group>
-              <Form.Group className="col-md-4" controlId="password">
-                <Form.Label> Password </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Password"
-                  onChange={changeHandler}
-                />
-              </Form.Group>
-            </Form.Row>
-            <Form.Row>
               <Form.Group className="col-md-4" controlId="address">
                 <Form.Label> Address </Form.Label>
                 <Form.Control
                   type="textarea"
-                  placeholder="Enter Address"
+                  name="address"
+                  value={state.address}
+                  // placeholder="Enter Address"
                   onChange={changeHandler}
                 />
               </Form.Group>
@@ -101,21 +111,22 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Label> ZIP CODE </Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="Enter ZIP"
+                  value={state.zip}
+                  // placeholder="Enter ZIP"
                   onChange={changeHandler}
                 />
               </Form.Group>
+            </Form.Row>
+            <Form.Row>
               <Form.Group className="col-md-4" controlId="state">
                 <Form.Label> State </Form.Label>
-                <Form.Control as="select">
+                <Form.Control as="select" name="state" value={state.state}>
                   <option>Andrapradesh</option>
                   <option>Karnataka</option>
                   <option>Kerala</option>
                   <option>TamilNadu</option>
                 </Form.Control>
               </Form.Group>
-            </Form.Row>
-            <Form.Row>
               <Form.Group className="col-md-4" controlId="country">
                 <Form.Label> Country </Form.Label>
                 <Form.Control as="select">
@@ -128,40 +139,50 @@ const PersonalDetailsComponents = (props) => {
               <Form.Group className="col-md-4" controlId="email">
                 <Form.Label> Email </Form.Label>
                 <Form.Control
-                  type="email"
-                  placeholder="Enter Email"
-                  onChange={changeHandler}
-                />
-              </Form.Group>
-              <Form.Group className="col-md-4" controlId="pan">
-                <Form.Label> PAN </Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter PAN Number"
+                  // type="email"
+                  name="email"
+                  value={state.email}
+                  // placeholder="Enter Email"
                   onChange={changeHandler}
                 />
               </Form.Group>
             </Form.Row>
             <Form.Row>
+              <Form.Group className="col-md-4" controlId="pan">
+                <Form.Label> PAN </Form.Label>
+                <Form.Control
+                  type="text"
+                  value={state.pan}
+                  // placeholder="Enter PAN Number"
+                  onChange={changeHandler}
+                />
+              </Form.Group>
               <Form.Group className="col-md-4" controlId="contactNumber">
                 <Form.Label> Contact Number </Form.Label>
                 <Form.Control
                   type="number"
-                  placeholder="Enter Contact Number"
+                  value={state.contactNumber}
+                  // placeholder="Enter Contact Number"
                   onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="dob">
                 <Form.Label> DOB </Form.Label>
                 <Form.Control
-                  type="date"
-                  placeholder=""
+                  type="text"
+                  value={state.dob}
                   onChange={changeHandler}
                 />
               </Form.Group>
+            </Form.Row>
+            <Form.Row>
               <Form.Group className="col-md-4" controlId="accountType">
                 <Form.Label> Account Type </Form.Label>
-                <Form.Control as="select">
+                <Form.Control
+                  as="select"
+                  name="accountType"
+                  value={state.accountType}
+                >
                   <option> Savings</option>
                   <option> Salary</option>
                   <option>Current</option>
@@ -177,9 +198,9 @@ const PersonalDetailsComponents = (props) => {
               >
                 Update
               </Button>
-              <Button className="reset" variant="secondary" size="sm">
+              {/* <Button className="reset" variant="secondary" size="sm">
                 Cancel
-              </Button>
+              </Button> */}
             </div>
           </Form>
         </Card.Body>

@@ -42,7 +42,8 @@ const LoanDetailsComponent = (props) => {
       .then((result) => {
         console.log(result.data);
         dispatch(apply_loan(result.data));
-        alert("Loan Applied !!!"  });
+        alert("Loan Applied !!!");
+      });
     // dispatch(apply_loan(state));
     // const test = state.loanType;
     // console.log(state);
