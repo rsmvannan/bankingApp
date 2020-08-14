@@ -10,14 +10,16 @@ export const add_user = (username) => {
 };
 
 export const apply_loan = (state) => {
+  // console.log("c1");
   return (dispatch) => {
     setTimeout(() => {
       dispatch(add_loan(state));
-    }, 5000);
+    }, 1000);
   };
 };
 
 export const add_loan = (state) => {
+  // console.log("c2");
   return {
     type: APPLY_LOAN,
     state: state,

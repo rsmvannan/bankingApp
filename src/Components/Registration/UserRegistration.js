@@ -3,6 +3,10 @@ import "./UserRegistration.css";
 import { Form, Button, Card } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+// import * as actionTypes from "../../store/actions/actions";
+import { add_user } from "../../store/actions/actions";
 
 const UserRegistration = (props) => {
   const [state, setState] = useState({
@@ -20,17 +24,32 @@ const UserRegistration = (props) => {
     accountType: "",
   });
   let history = useHistory();
+  const dispatch = useDispatch();
+  // let history = useHistory();
 
   const changeHandler = (event) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const value = event.target.value;
+    setState({
+      ...state,
+      [event.target.name]: value,
+    });
+
+    // const { name, value } = event.target;
+    // setState((prevState) => ({
+    //   ...prevState,
+    //   [name]: value,
+    // }));
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    dispatch(add_user(state.userName));
+    console.log(state);
+    await axios
+      .post("http://localhost:8001/registration", { state })
+      .then((result) => {
+        console.log(result.data);
+      });
     alert("User Registration Successfull...");
     history.push("/");
   };
@@ -47,6 +66,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="text"
                   required
+                  name="name"
                   placeholder="Enter Name"
                   onChange={changeHandler}
                 />
@@ -56,6 +76,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="text"
                   required
+                  name="userName"
                   placeholder="Enter User Name"
                   onChange={changeHandler}
                 />
@@ -65,6 +86,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="password"
                   required
+                  name="password"
                   placeholder="Enter Password"
                   onChange={changeHandler}
                 />
@@ -76,6 +98,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="textarea"
                   required
+                  name="address"
                   placeholder="Enter Address"
                   onChange={changeHandler}
                 />
@@ -85,13 +108,14 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="text"
                   required
+                  name="zip"
                   placeholder="Enter ZIP"
                   onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="state">
                 <Form.Label> State </Form.Label>
-                <Form.Control as="select" onChange={changeHandler}>
+                <Form.Control as="select" onChange={changeHandler} name="state">
                   <option>Andrapradesh</option>
                   <option>Karnataka</option>
                   <option>Kerala</option>
@@ -102,7 +126,11 @@ const UserRegistration = (props) => {
             <Form.Row>
               <Form.Group className="col-md-4" controlId="country">
                 <Form.Label> Country </Form.Label>
-                <Form.Control as="select" onChange={changeHandler}>
+                <Form.Control
+                  as="select"
+                  onChange={changeHandler}
+                  name="country"
+                >
                   <option>India</option>
                   <option>United Kingdom</option>
                   <option>United States</option>
@@ -114,6 +142,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="email"
                   required
+                  name="email"
                   placeholder="Enter Email"
                   onChange={changeHandler}
                 />
@@ -126,6 +155,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="text"
                   required
+                  name="pan"
                   placeholder="Enter PAN Number"
                   onChange={changeHandler}
                 />
@@ -137,6 +167,7 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="number"
                   required
+                  name="contactNumber"
                   placeholder="Enter Contact Number"
                   onChange={changeHandler}
                 />
@@ -146,13 +177,18 @@ const UserRegistration = (props) => {
                 <Form.Control
                   type="date"
                   required
+                  name="dob"
                   placeholder=""
                   onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="accountType">
                 <Form.Label> Account Type </Form.Label>
-                <Form.Control as="select" onChange={changeHandler}>
+                <Form.Control
+                  as="select"
+                  onChange={changeHandler}
+                  name="accountType"
+                >
                   <option> Savings</option>
                   <option> Salary</option>
                   <option>Current</option>

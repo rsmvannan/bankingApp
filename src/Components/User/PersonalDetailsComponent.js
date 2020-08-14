@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./User.css";
+import axios from "axios";
 import { Form, Button, Card } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PersonalDetailsComponents = (props) => {
+  const selector = useSelector((state) => state.loggedUser);
+
   const [state, setState] = useState({
     name: "",
     userName: "",
@@ -20,12 +24,21 @@ const PersonalDetailsComponents = (props) => {
   });
   let history = useHistory();
 
+  useEffect(() => {
+    // event.preventDefault();
+    // console.log(selector);
+    axios.get("http://localhost:8001/user").then((result) => {
+      console.log(result.data);
+      // dispatch(apply_loan(result.data));
+    });
+  }, []);
+
   const changeHandler = (event) => {
-    const { name, value } = event.target;
-    setState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const value = event.target.value;
+    setState({
+      ...state,
+      [event.target.name]: value,
+    });
   };
 
   const submitHandler = (event) => {

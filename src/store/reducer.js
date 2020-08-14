@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(action.type, action);
+  console.log("c3", action.type, action);
   switch (action.type) {
     case actionTypes.ADD_USER:
       if (action.name !== null) {
