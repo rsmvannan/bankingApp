@@ -1,5 +1,12 @@
 import React from "react";
-import { StaticRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  // Router,
+  // StaticRouter as Router,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from "react-router-dom";
+// import history from "./history";
 import LoginComponent from "./Components/Login/LoginComponent";
 import HeaderComponent from "./Components/Header/HeaderComponent";
 import WelcomeComponent from "./Components/User/WelcomeComponent";
@@ -12,7 +19,8 @@ const RouterComponent = () => {
   return (
     <div>
       <Router>
-        <Route path="/" component={HeaderComponent} />
+        {/* <Route path="/" component={HeaderComponent} /> */}
+        <HeaderComponent />
         <Switch>
           <Route path="/" exact component={LoginComponent} />
           <Route path="/welcome/" exact component={WelcomeComponent} />

@@ -1,9 +1,11 @@
 import React from "react";
+// import componentDidMount from "redux";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 const Loans = () => {
   const selector = useSelector((state) => state.loanDetails);
+
   return (
     <Table striped bordered hover>
       <thead>

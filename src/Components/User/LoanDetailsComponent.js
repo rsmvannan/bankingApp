@@ -4,6 +4,7 @@ import { useHistory, Link } from "react-router-dom";
 import { Card, Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loans from "./Loans";
+// import axios from "axios";
 // import * as actionTypes from "../../store/actions/actions";
 import { apply_loan } from "../../store/actions/actions";
 
@@ -21,22 +22,31 @@ const LoanDetailsComponent = (props) => {
   const selector = useSelector((state) => state.loanDetails);
 
   const changeHandler = (event) => {
-    // console.log(event.target.name, event.target.value);
     const value = event.target.value;
     setState({
       ...state,
       [event.target.name]: value,
     });
-    // const { name, value } = event.target;
-    // setState((prevState) => ({
-    //   ...prevState,
-    //   [name]: value,
-    // }));
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     dispatch(apply_loan(state));
+    // testing
+    // await axios
+    //   .post("http://localhost:8001/applyloan", { state })
+    //   .then((result) => {
+    //     console.log(result.data);
+    //     dispatch(apply_loan(result.data));
+    //     alert("Loan Applied !!!");
+    //   });
+    // testing
+    // dispatch(apply_loan(state));
+    // const test = state.loanType;
+    // console.log(state);
+    // const apply = await axios.get("http://localhost:8001/loan").then((res) => {
+    //   console.log(res.data);
+    // });
   };
 
   const clickHandler = () => {
