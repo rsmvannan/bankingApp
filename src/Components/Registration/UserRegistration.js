@@ -43,13 +43,17 @@ const UserRegistration = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    dispatch(add_user(state.userName));
-    console.log(state);
-    await axios
-      .post("http://localhost:8001/registration", { state })
-      .then((result) => {
-        console.log(result.data);
-      });
+    // testing
+    dispatch(add_user(state));
+
+    //testing
+    // dispatch(add_user(state.userName));
+    // console.log(state);
+    // await axios
+    //   .post("http://localhost:8001/registration", { state })
+    //   .then((result) => {
+    //     console.log(result.data);
+    //   });
     alert("User Registration Successfull...");
     history.push("/");
   };

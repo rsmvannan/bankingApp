@@ -3,12 +3,14 @@ import "./User.css";
 import axios from "axios";
 import { Form, Button, Card } from "react-bootstrap";
 import { useHistory, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { update_user } from "../../store/actions/actions";
 
 const PersonalDetailsComponents = (props) => {
   const selector = useSelector((state) => state.loggedUser);
 
   const [state, setState] = useState({
+    id: "",
     name: "",
     userName: "",
     password: "",
@@ -23,38 +25,34 @@ const PersonalDetailsComponents = (props) => {
     accountType: "",
   });
   let history = useHistory();
+  let dispatch = useDispatch();
 
   useEffect(() => {
     console.log("use effect");
-    // event.preventDefault();
-    // console.log(selector);
     axios.get("http://localhost:8001/user").then((result) => {
       console.log(result.data);
       assignValues(result.data[0]);
-      // setState({
-      //   ...state,
-      //   name: result.data[0].name,
-      // });
-      // changeHandler(result);
-      // dispatch(apply_loan(result.data));
     });
   }, []);
 
   function assignValues(userData) {
     console.log(userData);
-    setState({
-      // ...state,
-      name: userData.name,
-      address: userData.address,
-      zip: userData.zip,
-      state: userData.state,
-      country: userData.country,
-      email: userData.email,
-      pan: userData.pan,
-      contactNumber: userData.contactNumber,
-      dob: userData.dob.toString().slice(0, 10),
-      accountType: userData.accountType,
-    });
+    if (userData) {
+      //  _id = userData._id;
+      setState({
+        id: userData._id,
+        name: userData.name,
+        address: userData.address,
+        zip: userData.zip,
+        state: userData.state,
+        country: userData.country,
+        email: userData.email,
+        pan: userData.pan,
+        contactNumber: userData.contactNumber,
+        dob: userData.dob.toString().slice(0, 10),
+        accountType: userData.accountType,
+      });
+    }
   }
 
   const changeHandler = (event) => {
@@ -65,9 +63,11 @@ const PersonalDetailsComponents = (props) => {
     });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    alert("Profile Updated...");
+    console.log(state);
+    await dispatch(update_user(state));
+    // alert("Profile Updated...");
     history.push("/welcome");
   };
 
