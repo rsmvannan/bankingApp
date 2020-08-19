@@ -3,6 +3,14 @@ import axios from "axios";
 
 export const ADD_USER = "ADD_USER";
 export const APPLY_LOAN = "APPLY_LOAN";
+export const AUTH_USER = "AUTH_USER";
+
+export const auth_user = (username) => {
+  // console.log(state);
+  return async (dispatch) => {
+    dispatch(adding_user(username));
+  };
+};
 
 export const add_user = (state) => {
   return async (dispatch) => {

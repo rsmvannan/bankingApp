@@ -4,13 +4,14 @@ const bodyParser = require("body-parser");
 // const userdata = require("./data/userdata");
 const applyloan = require("./loans/applyloan");
 const mongoose = require("../server/dbConnection/connection");
-const { fetchUser, updateUser } = require("./user/userDetails");
+// const { fetchUser, updateUser } = require("./user/userDetails");
 const fetchloan = require("./loans/fetchloan");
 const registerUser = require("./user/registerUser");
 const getUser = require("./api/getUser");
 const getLoan = require("./api/getLoan");
 const applyLoan = require("./api/applyLoan");
 const register = require("./api/register");
+const updateUser = require("./api/updateUser");
 const Loan = require("./models/loan");
 const User = require("./models/user");
 const cors = require("cors");
@@ -36,6 +37,7 @@ app.use("/registration", register);
 app.use("/user", getUser);
 app.use("/loan", getLoan);
 app.use("/applyloan", applyLoan);
+app.use("/updateuser", updateUser);
 // app.get("/user", (req, res) => {
 //   User.find().then((result) => {
 //     console.log(result);
@@ -68,10 +70,10 @@ app.use("/applyloan", applyLoan);
 //   res.status(200).send(registerUser);
 // });
 
-// app.get("/loan", (req, res) => {
-//   Loan.find().then((result) => {
-//     console.log(result);
-//     res.send(result);
+// // app.get("/loan", (req, res) => {
+// //   Loan.find().then((result) => {
+// //     console.log(result);
+// //     res.send(result);
 //   });
 //   // const loans = fetchloan();
 //   // console.log("loans:", loans);
@@ -93,20 +95,34 @@ app.use("/applyloan", applyLoan);
 //   res.status(200).send(addloan);
 // });
 
-app.put("/updateuser", (req, res) => {
-  // console.log("update:", req.body.state.id);
-  User.update(
-    {
-      _id: req.body.state.id,
-    },
-    {
-      $set: { pan: "apqpm1234" },
-    }
-  );
+// app.put("/updateuser", (req, res) => {
+//   const updatedValues = req.body.state;
+//   User.update(
+//     { _id: req.body.state.id },
+//     {
+//       $set: {
+//         name: updatedValues.name,
+//         address: updatedValues.address,
+//         zip: updatedValues.zip,
+//         state: updatedValues.state,
+//         country: updatedValues.country,
+//         email: updatedValues.email,
+//         pan: updatedValues.pan,
+//         contactNumber: updatedValues.contactNumber,
+//         dob: updatedValues.dob,
+//         accountType: updatedValues.accountType,
+//       },
+//     }
+//   )
+//     .exec()
+//     .then(() => {
+//       // console.log("testing...");
+//       res.status(200).send("updated");
+//     });
+//   // );
 
-  res.status(200).send("updated");
-  // res.json(updateUser());
-});
+//   // res.json(updateUser());
+// });
 
 // app.delete("/", (req, res) => {
 //   res.send("delete request");
