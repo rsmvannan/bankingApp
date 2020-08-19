@@ -56,6 +56,7 @@ const PersonalDetailsComponents = (props) => {
   }
 
   const changeHandler = (event) => {
+    console.log("change");
     const value = event.target.value;
     setState({
       ...state,
@@ -92,9 +93,9 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Control
                   type="text"
                   name="name"
+                  onChange={changeHandler}
                   value={state.name}
                   // placeholder="Enter Name"
-                  onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="address">
@@ -102,25 +103,31 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Control
                   type="textarea"
                   name="address"
+                  onChange={changeHandler}
                   value={state.address}
                   // placeholder="Enter Address"
-                  onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="zip">
                 <Form.Label> ZIP CODE </Form.Label>
                 <Form.Control
                   type="text"
+                  name="zip"
+                  onChange={changeHandler}
                   value={state.zip}
                   // placeholder="Enter ZIP"
-                  onChange={changeHandler}
                 />
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group className="col-md-4" controlId="state">
                 <Form.Label> State </Form.Label>
-                <Form.Control as="select" name="state" value={state.state}>
+                <Form.Control
+                  as="select"
+                  name="state"
+                  onChange={changeHandler}
+                  value={state.state}
+                >
                   <option>Andrapradesh</option>
                   <option>Karnataka</option>
                   <option>Kerala</option>
@@ -129,7 +136,12 @@ const PersonalDetailsComponents = (props) => {
               </Form.Group>
               <Form.Group className="col-md-4" controlId="country">
                 <Form.Label> Country </Form.Label>
-                <Form.Control as="select">
+                <Form.Control
+                  as="select"
+                  name="country"
+                  onChange={changeHandler}
+                  value={state.country}
+                >
                   <option>India</option>
                   <option>United Kingdom</option>
                   <option>United States</option>
@@ -141,9 +153,10 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Control
                   // type="email"
                   name="email"
+                  onChange={changeHandler}
                   value={state.email}
                   // placeholder="Enter Email"
-                  onChange={changeHandler}
+                  // onChange={changeHandler}
                 />
               </Form.Group>
             </Form.Row>
@@ -152,26 +165,32 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Label> PAN </Form.Label>
                 <Form.Control
                   type="text"
+                  name="pan"
+                  onChange={changeHandler}
                   value={state.pan}
                   // placeholder="Enter PAN Number"
-                  onChange={changeHandler}
+                  // onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="contactNumber">
                 <Form.Label> Contact Number </Form.Label>
                 <Form.Control
                   type="number"
+                  name="contactNumber"
+                  onChange={changeHandler}
                   value={state.contactNumber}
                   // placeholder="Enter Contact Number"
-                  onChange={changeHandler}
+                  // onChange={changeHandler}
                 />
               </Form.Group>
               <Form.Group className="col-md-4" controlId="dob">
-                <Form.Label> DOB </Form.Label>
+                <Form.Label> DOB (YYYY-MM-DD) </Form.Label>
                 <Form.Control
                   type="text"
-                  value={state.dob}
+                  name="dob"
                   onChange={changeHandler}
+                  value={state.dob}
+                  // onChange={changeHandler}
                 />
               </Form.Group>
             </Form.Row>
@@ -181,6 +200,7 @@ const PersonalDetailsComponents = (props) => {
                 <Form.Control
                   as="select"
                   name="accountType"
+                  onChange={changeHandler}
                   value={state.accountType}
                 >
                   <option> Savings</option>
